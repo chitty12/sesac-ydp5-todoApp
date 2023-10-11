@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Todo from './components/Todo';
+import AddTodo from './components/AddTodo';
 
 function App() {
   const [todoItems, setTodoItems] = useState([
@@ -20,11 +21,29 @@ function App() {
     },
   ]);
 
+  const addItem = (newItem) => {
+    console.log(newItem);
+
+    // newItem id 키 값 넣고, newItem done 키 값
+    newItem.id = todoItems.length + 1;
+    newItem.done = false;
+
+    const addTodo = {
+      id: newItem.id,
+      title: newItem.title,
+      done: newItem.done,
+    };
+    console.log(addTodo);
+    setTodoItems([...todoItems, addTodo]);
+  };
+
   return (
     <div className="App">
-      {todoItems.map((todo) => {
-        <Todo key={todo.id} item={todo} />;
-      })}
+      <AddTodo addItem={addItem} />
+
+      {/* {todoItems.map((item) => (
+        <Todo key={item.id} item={item} />
+      ))} */}
     </div>
   );
 }
