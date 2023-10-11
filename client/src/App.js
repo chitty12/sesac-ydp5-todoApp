@@ -37,13 +37,17 @@ function App() {
     setTodoItems([...todoItems, addTodo]);
   };
 
+  const deleteItem = (e) => {
+    console.log(e);
+  };
+
   return (
     <div className="App">
       <AddTodo addItem={addItem} />
 
-      {/* {todoItems.map((item) => (
-        <Todo key={item.id} item={item} />
-      ))} */}
+      {todoItems.map((item) => (
+        <Todo key={item.id} item={item} deleteItem={deleteItem} />
+      ))}
     </div>
   );
 }
