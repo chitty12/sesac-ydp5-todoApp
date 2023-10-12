@@ -5,7 +5,7 @@ const PORT = 3030;
 const router = require('./routes/index');
 const { sequelize } = require('./models/index');
 
-app.use('/', express.static(__dirname + '/client'));
+app.use('/', express.static(__dirname + '../client'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
