@@ -1,5 +1,5 @@
 const { sequelize } = require('../models/index');
-const { Todo } = require('../models/Todo');
+const { Todo } = require('../models');
 
 exports.index = async () => {
   try {

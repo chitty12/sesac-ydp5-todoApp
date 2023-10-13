@@ -1,11 +1,11 @@
-const Todo = (sequelize, DataTypes) => {
-  const model = sequelize.define(
-    'Todo',
+const Todo = function (Sequelize, DataTypes) {
+  const model = Sequelize.define(
+    'todo',
     {
       id: {
         type: DataTypes.INTEGER,
-        primaryKey: true,
         allowNull: false,
+        primaryKey: true,
         autoIncrement: true,
       },
       title: {
@@ -15,10 +15,11 @@ const Todo = (sequelize, DataTypes) => {
       done: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: 0,
+        defaultValue: false,
       },
     },
     {
+      tableName: 'todo',
       freezeTableName: true,
       timestamps: false,
     }

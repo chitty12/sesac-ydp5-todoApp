@@ -11,11 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.5.1",
-    "express": "^4.18.2",
-    "http-proxy-middelware": "^0.0.1-security",
-    "mysql2": "^3.6.1",
-    "sequelize": "^6.33.0",
-    "sequelize-cli": "^6.6.1"
+    "express": "4.18.2",
+    "mysql2": "2.3.3",
+    "sequelize": "6.26.0",
+    "sequelize-cli": "6.5.2"
   }
 }
