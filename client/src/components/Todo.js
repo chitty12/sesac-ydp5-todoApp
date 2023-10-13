@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function Todo({ item, deleteItem }) {
+export default function Todo({ item, deleteItem, updateItem }) {
   const [todoItem, setTodoItem] = useState(item);
   const [readOnly, setReadOnly] = useState(true);
 
@@ -36,17 +36,22 @@ export default function Todo({ item, deleteItem }) {
   const editKeyHandler = (e) => {
     if (e.keyCode === 13) {
       setReadOnly(true);
+      updateItem(todoItem);
     }
   };
 
   const checkboxEventHandler = (e) => {
-    console.log(e.target.checked);
-    setTodoItem({
+    const updatedItem = {
       ...todoItem,
       done: e.target.checked,
-    });
-    console.log(todoItem);
+    };
+
+    setTodoItem(updatedItem);
+    updateItem(updatedItem);
   };
+
+  const isCheck = () => {};
+
   return (
     <div>
       <input
@@ -54,6 +59,7 @@ export default function Todo({ item, deleteItem }) {
         name={`todo${id}`}
         id={`todo${id}`}
         onChange={checkboxEventHandler}
+        defaultChecked={done}
       ></input>
       {/* <label htmlFor={`todo${id}`}>{title}</label>
        */}

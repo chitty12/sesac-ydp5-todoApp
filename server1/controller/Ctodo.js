@@ -21,8 +21,8 @@ exports.createTodo = async (req, res) => {
       done: false,
     });
     console.log(newTodo);
-    // res.send(newTodo);
-    res.end();
+    res.send(newTodo);
+    // res.end();
   } catch (err) {
     res.send(err);
   }
@@ -57,6 +57,7 @@ exports.updateTodo = async (req, res) => {
 
 exports.deleteTodo = async (req, res) => {
   try {
+    console.log(req.params);
     let isDeleted = await Todo.destroy({
       where: {
         id: { [Op.eq]: req.params.todoId },

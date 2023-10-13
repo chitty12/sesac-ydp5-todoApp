@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Todo from './components/Todo';
 import AddTodo from './components/AddTodo';
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    const getTodos = async () => {
+      const res = await axios.get(`${process.env.REACT_APP_DB_HOST}/todos`);
+      console.log(res.data);
+      setTodoItems(res.data);
+    };
+
+    getTodos();
+  }, []);
+
   const [todoItems, setTodoItems] = useState([
     {
       id: 1,
@@ -21,33 +32,61 @@ function App() {
     },
   ]);
 
-  const addItem = (newItem) => {
-    console.log(newItem);
+  const addItem = async (newItem) => {
+    //   console.log(newItem);
 
-    // newItem id 키 값 넣고, newItem done 키 값
-    newItem.id = todoItems.length + 1;
-    newItem.done = false;
+    //   // newItem id 키 값 넣고, newItem done 키 값
+    //   newItem.id = todoItems.length + 1;
+    //   newItem.done = false;
 
-    const addTodo = {
-      id: newItem.id,
-      title: newItem.title,
-      done: newItem.done,
-    };
-    console.log(addTodo);
-    setTodoItems([...todoItems, addTodo]);
+    //   const addTodo = {
+    //     id: newItem.id,
+    //     title: newItem.title,
+    //     done: newItem.done,
+    //   };
+    //   console.log(addTodo);
+    //   setTodoItems([...todoItems, addTodo]);
+
+    const res = await axios.post(
+      `${process.env.REACT_APP_DB_HOST}/todo`,
+      newItem
+    );
+    // axios.post('url', {})
+
+    setTodoItems([...todoItems, res.data]);
   };
 
-  const deleteItem = (targetItem) => {
+  const deleteItem = async (targetItem) => {
+    await axios.delete(
+      `${process.env.REACT_APP_DB_HOST}/todo/${targetItem.id}`
+    );
+
     const newTodo = todoItems.filter((item) => item.id !== targetItem.id);
     setTodoItems(newTodo);
+  };
+
+  const todoCount = todoItems.length;
+  const newArray = todoItems.sort();
+
+  const updateItem = async (targetItem) => {
+    await axios.patch(
+      `${process.env.REACT_APP_DB_HOST}/todo/${targetItem.id}`,
+      targetItem
+    );
   };
 
   return (
     <div className="App">
       <AddTodo addItem={addItem} />
 
-      {todoItems.map((item) => (
-        <Todo key={item.id} item={item} deleteItem={deleteItem} />
+      <div>{todoCount} todos !</div>
+      {newArray.map((item) => (
+        <Todo
+          key={item.id}
+          item={item}
+          deleteItem={deleteItem}
+          updateItem={updateItem}
+        />
       ))}
     </div>
   );
