@@ -3,4 +3,14 @@
 GET {{server}}/api/todos
 
 
+### post
+POST {{server}}/api/todo
+Content-Type: application/json; charset=UTF-8
+
+{
+    "id": 1,
+    "title" : "할것",
+    "done" : false
+}
+
 

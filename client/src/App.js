@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Todo from './components/Todo';
 import AddTodo from './components/AddTodo';
 import axios from 'axios';
+import './styles/app.scss';
+import 'bulma/css/bulma.css';
 
 function App() {
   useEffect(() => {
+    console.log(process.env.REACT_APP_DB_HOST);
     const getTodos = async () => {
       const res = await axios.get(`${process.env.REACT_APP_DB_HOST}/todos`);
       console.log(res.data);
@@ -76,19 +79,26 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <AddTodo addItem={addItem} />
+    <>
+      <div className="container is-widescreen">
+        <div className="notification is-primary title is-1 hero is-info">
+          My Todo List!
+        </div>
+      </div>
+      <div className="App">
+        <AddTodo addItem={addItem} />
+        <h4 class="subtitle is-4">{todoCount} todos !</h4>
 
-      <div>{todoCount} todos !</div>
-      {newArray.map((item) => (
-        <Todo
-          key={item.id}
-          item={item}
-          deleteItem={deleteItem}
-          updateItem={updateItem}
-        />
-      ))}
-    </div>
+        {newArray.map((item) => (
+          <Todo
+            key={item.id}
+            item={item}
+            deleteItem={deleteItem}
+            updateItem={updateItem}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 

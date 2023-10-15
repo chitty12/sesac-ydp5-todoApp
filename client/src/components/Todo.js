@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import '../styles/todo.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function Todo({ item, deleteItem, updateItem }) {
   const [todoItem, setTodoItem] = useState(item);
@@ -50,10 +53,8 @@ export default function Todo({ item, deleteItem, updateItem }) {
     updateItem(updatedItem);
   };
 
-  const isCheck = () => {};
-
   return (
-    <div>
+    <div className="Todo">
       <input
         type="checkbox"
         name={`todo${id}`}
@@ -64,6 +65,7 @@ export default function Todo({ item, deleteItem, updateItem }) {
       {/* <label htmlFor={`todo${id}`}>{title}</label>
        */}
       <input
+        class="input is-success"
         type="text"
         value={todoItem.title}
         readOnly={readOnly}
@@ -71,7 +73,15 @@ export default function Todo({ item, deleteItem, updateItem }) {
         onChange={editEventHandler}
         onKeyDown={editKeyHandler}
       ></input>
-      <button onClick={onDeleteButtonClick}>Delete</button>
+      <button
+        class="button is-danger is-outlined"
+        onClick={onDeleteButtonClick}
+      >
+        <span>Delete</span>
+        <span class="icon is-small">
+          <FontAwesomeIcon icon={faTrash} bounce />
+        </span>
+      </button>
     </div>
   );
 }
